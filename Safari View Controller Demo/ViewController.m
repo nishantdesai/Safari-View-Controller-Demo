@@ -17,16 +17,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.urlTextField.delegate = self;
 }
 
 - (void)openLink:(NSString *)url {
     
-    SFSafariViewController *sfvc = [[SFSafariViewController alloc]
-                                    initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", url]]];
-    sfvc.delegate = self;
-    [self presentViewController:sfvc animated:YES completion:nil];
-    
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", url]];
+    if (URL) {
+        SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:URL];
+        sfvc.delegate = self;
+        [self presentViewController:sfvc animated:YES completion:nil];
+    } else {
+        // will have a nice alert displaying soon.
+    }
 }
 
 #pragma Safari View Controller Delegate
